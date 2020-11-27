@@ -1,0 +1,13 @@
+diff --git a/node_modules/google-translate-token/index.js b/node_modules/google-translate-token/index.js
+index d7dacba..e028953 100644
+--- a/node_modules/google-translate-token/index.js
++++ b/node_modules/google-translate-token/index.js
+@@ -80,7 +80,7 @@ function updateTKK() {
+         if (Number(window.TKK.split('.')[0]) === now) {
+             resolve();
+         } else {
+-            got('https://translate.google.com').then(function (res) {
++            got('https://translate.google.cn').then(function (res) {
+                 var code = res.body.match(/TKK=(.*?)\(\)\)'\);/g);
+ 
+                 if (code) {

@@ -1,0 +1,33 @@
+{
+  "name": "excel-translate",
+  "version": "1.0.0",
+  "description": "批量翻译 Excel 文档",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "patch-package",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kagol/excel-translate.git"
+  },
+  "keywords": [
+    "excel",
+    "translate",
+    "google-translate-api",
+    "node.js",
+    "xlsx"
+  ],
+  "author": "Kagol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kagol/excel-translate/issues"
+  },
+  "homepage": "https://github.com/kagol/excel-translate#readme",
+  "dependencies": {
+    "google-translate-api": "^2.3.0",
+    "node-xlsx": "^0.15.0",
+    "patch-package": "^6.2.2"
+  }
+}

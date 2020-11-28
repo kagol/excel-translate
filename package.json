@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "patch-package",
     "start": "node index.js",
+    "translate": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,9 +26,10 @@
     "url": "https://github.com/kagol/excel-translate/issues"
   },
   "homepage": "https://github.com/kagol/excel-translate#readme",
-  "dependencies": {
+  "devDependencies": {
     "google-translate-api": "^2.3.0",
     "node-xlsx": "^0.15.0",
-    "patch-package": "^6.2.2"
+    "patch-package": "^6.2.2",
+    "commander": "^6.2.0"
   }
 }

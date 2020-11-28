@@ -1,53 +1,14 @@
-const fs = require('fs');
-const xlsx = require('node-xlsx');
-const translate = require('google-translate-api');
+const program = require('commander');
+const { translateExcel } = require('./src');
+const { DEFAULT_FROM_LANG, DEFAULT_TO_LANG } = require('./src/const');
 
-const path = `${__dirname}/test.xlsx`;
-const sheetList = xlsx.parse(path);
-const tasks = getCellList(sheetList).map((cellText) => translateText(cellText));
+// 从命令行参数中取 Excel 文件路径
+program
+  .option('-p, --path <type>', 'Excel file path', `${__dirname}/test.xlsx`)
+  .option('-f, --from <type>', 'Original language', DEFAULT_FROM_LANG)
+  .option('-t, --to <type>', 'Target language', DEFAULT_TO_LANG);
+program.parse(process.argv);
 
-Promise.all(tasks)
-.then((values) => {
-  console.log('values:', values);
-  sheetList.forEach((sheet) => {
-    sheet.data.slice(1).forEach((row, rowIndex) => {
-      row.forEach((cell, cellIndex) => {
-        if (cellIndex === 0) { // 第一列
-          sheet.data[rowIndex+1][cellIndex+1] = values[rowIndex];
-        }
-      });
-    });
-  });
-})
-.then(() => {
-  const buffer = xlsx.build(sheetList);
-  // 将缓存的数据写入到相应的 Excel 文件下
-  fs.writeFile(path.replace(/\./, '-翻译版.'), buffer, (err) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-  });
-});
-
-function getCellList(sheetList) {
-  const cellList = [];
-  sheetList.forEach((sheet) => {
-    sheet.data.slice(1).forEach((row) => {
-      row.forEach((cell, cellIndex) => {
-        if (cellIndex === 0) { // 第一列
-          cellList.push(cell);
-        }
-      });
-    });
-  });
-  return cellList;
-}
-
-function translateText(text) {
-  return new Promise((resolve) => {
-    translate(text, { from: 'en', to: 'zh-cn' }).then(res => {
-      resolve(res.text);
-    });
-  });
-}
+const { path, from, to } = program;
+console.log('path, from, to', path, from, to);
+translateExcel(path, { from, to });
